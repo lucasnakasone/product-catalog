@@ -13,6 +13,9 @@ import com.lucasnakasone.productcatalog.repositories.CategoryRepository;
 
 import com.lucasnakasone.productcatalog.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
+
 @Service
 public class CategoryService {
 
@@ -30,13 +33,22 @@ public class CategoryService {
 		return new CategoryDTO(entity);
 	}
 
-	public CategoryDTO insert(CategoryDTO obj) {
+	public CategoryDTO insert(CategoryDTO dto) {
 		Category entity = new Category();
-		entity.setName(obj.getName());
+		entity.setName(dto.getName());
 		entity = repository.save(entity);
 		return new CategoryDTO(entity);
 	}
-	
-	
-	
+
+	@Transactional
+	public CategoryDTO update(Long id, CategoryDTO dto) {
+		try {
+			Category entity = repository.getReferenceById(id);
+			entity.setName(dto.getName());
+			entity = repository.save(entity);
+			return new CategoryDTO(entity);
+		} catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException("ID not found");
+		}
+	}
 }

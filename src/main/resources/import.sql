@@ -1,3 +1,3 @@
-insert into tb_category(name) values ('Monitors')
-insert into tb_category(name) values ('Electronics')
-insert into tb_category(name) values ('Computers')
+insert into tb_category(name, created_At) values ('Monitors', NOW())
+insert into tb_category(name, created_At) values ('Electronics', NOW())
+insert into tb_category(name, created_At) values ('Computers', NOW())

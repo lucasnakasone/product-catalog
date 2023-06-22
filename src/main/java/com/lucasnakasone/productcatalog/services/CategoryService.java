@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 //import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,8 @@ public class CategoryService {
 	@Autowired
 	private CategoryRepository repository;
 	
-	public Page<CategoryDTO> findAllPaged(PageRequest  pageRequest){
-		Page<Category> list = repository.findAll(pageRequest);
+	public Page<CategoryDTO> findAllPaged(Pageable pageable){
+		Page<Category> list = repository.findAll(pageable);
 		return list.map(x -> new CategoryDTO(x));
 	}
 

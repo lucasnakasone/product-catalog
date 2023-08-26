@@ -71,10 +71,22 @@ public class ProductService {
 				throw new DataIntegrityException(e.getMessage());
 			}
 		} else {
-			throw new ResourceNotFoundException("ID not found");
+				throw new ResourceNotFoundException("ID not found");
 		}
 	}
 	
+	/*
+	public void delete(Long id) {
+		try {
+			repository.deleteById(id);
+		} catch (EmptyDataAccessException e) {
+			throw new ResourceNotFoundException("ID not found");
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException(e.getMessage());
+		} 
+	}
+	*/
+		
 	private void copyDtoToEntity(ProductDTO dto, Product entity) {
 		entity.setName(dto.getName());
 		entity.setDescription(dto.getDescription());

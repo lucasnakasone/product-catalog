@@ -4,10 +4,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-//import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.lucasnakasone.productcatalog.dto.CategoryDTO;
@@ -63,6 +62,7 @@ public class ProductService {
 		}
 	}
 	
+	/*
 	public void delete(Long id) {
 		if (repository.existsById(id)) {
 			try {
@@ -74,18 +74,19 @@ public class ProductService {
 				throw new ResourceNotFoundException("ID not found");
 		}
 	}
+	*/
 	
-	/*
+	///*
 	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
-		} catch (EmptyDataAccessException e) {
+		} catch (EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException("ID not found");
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException(e.getMessage());
 		} 
 	}
-	*/
+	//*/
 		
 	private void copyDtoToEntity(ProductDTO dto, Product entity) {
 		entity.setName(dto.getName());

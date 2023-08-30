@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.lucasnakasone.productcatalog.repositories.ProductRepository;
@@ -35,6 +36,14 @@ public class ProductServiceTests {
 		nonExistingId = 100L;
 		doNothing().when(repository).deleteById(existingId);
 		doThrow(ResourceNotFoundException.class).when(repository).deleteById(nonExistingId);
+	}
+	
+	@Test
+	public void deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExists() {
+		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+			service.delete(nonExistingId);
+		});
+		verify(repository, times(1)).deleteById(nonExistingId);
 	}
 	
 	@Test
